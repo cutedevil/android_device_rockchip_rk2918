@@ -28,22 +28,22 @@ PRODUCT_COPY_FILES += \
 #Ramdisk and boot
 PRODUCT_COPY_FILES += \
 	$(LOCAL_KERNEL):kernel.img \
-        device/rockchip/pascal2/init.rc:root/init.rc \
-        device/rockchip/pascal2/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
-	device/rockchip/pascal2/init.rk29board.rc:root/init.rk29board.rc \
-        device/rockchip/pascal2/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
-        device/rockchip/pascal2/rk29xxnand_ko.ko.3.0.8+:recovery/root/rk29xxnand_ko.ko.3.0.8+ \
-	device/rockchip/pascal2/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
-	device/rockchip/pascal2/prebuilt/init:root/init \
-	device/rockchip/pascal2/prebuilt/default.prop:recovery/root/default.prop \
-        device/rockchip/pascal2/initlogo.rle:root/initlogo.rle \
-        device/rockchip/pascal2/initlogo.rle:recovery/root/initlogo.rle \
-	device/rockchip/pascal2/prebuilt/misc.img:recovery/root/misc.img \
-        device/rockchip/pascal2/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc 
+        device/rockchip/rk2918/init.rc:root/init.rc \
+        device/rockchip/rk2918/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
+	device/rockchip/rk2918/init.rk29board.rc:root/init.rk29board.rc \
+        device/rockchip/rk2918/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
+        device/rockchip/rk2918/rk29xxnand_ko.ko.3.0.8+:recovery/root/rk29xxnand_ko.ko.3.0.8+ \
+	device/rockchip/rk2918/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
+	device/rockchip/rk2918/prebuilt/init:root/init \
+	device/rockchip/rk2918/prebuilt/default.prop:recovery/root/default.prop \
+        device/rockchip/rk2918/initlogo.rle:root/initlogo.rle \
+        device/rockchip/rk2918/initlogo.rle:recovery/root/initlogo.rle \
+	device/rockchip/rk2918/prebuilt/misc.img:recovery/root/misc.img \
+        device/rockchip/rk2918/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc 
 
 #Rktools and custom boot/recovery img
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/rockchip/pascal2/rktools,rktools) 
+	$(call find-copy-subdir-files,*,device/rockchip/rk2918/rktools,rktools) 
 
 
 
@@ -62,7 +62,7 @@ PRODUCT_COPY_FILES += \
 
 # init.d scripts
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/rockchip/pascal2/init.d,system/etc/init.d)
+	$(call find-copy-subdir-files,*,device/rockchip/rk2918/init.d,system/etc/init.d)
 
 # Configuration files
 
@@ -133,11 +133,11 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 # copy the builder 
 PRODUCT_COPY_FILES += \
-	device/rockchip/pascal2/custom_boot.sh:custom_boot.sh
+	device/rockchip/rk2918/custom_boot.sh:custom_boot.sh
 
 # other kernel modules not in ramdisk
 PRODUCT_COPY_FILES += $(foreach module,\
-	$(filter-out $(RAMDISK_MODULES),$(wildcard device/rockchip/pascal2/modules/*.ko)),\
+	$(filter-out $(RAMDISK_MODULES),$(wildcard device/rockchip/rk2918/modules/*.ko)),\
 	$(module):system/lib/modules/$(notdir $(module)))
 
 PRODUCT_AAPT_CONFIG := large mdpi
@@ -151,6 +151,6 @@ TARGET_BOOTANIMATION_NAME := horizontal-1024x600
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
-$(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 $(call inherit-product, build/target/product/full_base.mk)
 $(call inherit-product-if-exists, vendor/rockchip/rk2918/rk2918-vendor.mk)

@@ -50,8 +50,8 @@ BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 TARGET_USES_ION := true
 
 #recovery
-TARGET_RECOVERY_INITRC := device/rockchip/pascal2/recovery_init.rc
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/rockchip/pascal2/recovery_keys.c
+TARGET_RECOVERY_INITRC := device/rockchip/rk2918/recovery_init.rc
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/rockchip/rk2918/recovery_keys.c
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_NO_RGBX_8888 := true
 BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"
