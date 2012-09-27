@@ -23,20 +23,68 @@
   
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
+    <!-- If true, the screen can be rotated via the accelerometer in all 4
+         rotations as the default behavior. -->
     <bool name="config_allowAllRotations">true</bool>
 
+    <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 
+    <!-- Diable lockscreen rotation by default -->
     <bool name="config_enableLockScreenRotation">true</bool>
 
-    <bool name="config_automatic_brightness_available">false</bool>
+    <!-- Component name of the service providing network location support. -->
+    <!-- string name="config_networkLocationProvider">com.google.android.location.NetworkLocationProvider</string -->
+    <string name="config_networkLocationProviderPackageName">com.google.android.location</string>
 
+    <!-- Component name of the service providing geocoder API support. -->
+    <!-- string name="config_geocodeProvider">com.google.android.location.GeocodeProvider</string -->
+    <string name="config_geocodeProviderPackageName">com.google.android.location</string>
+
+    <!-- Flag indicating whether we should enable the automatic brightness in Settings.
+         config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
+	<bool name="config_automatic_brightness_available">false</bool>
+
+    <!-- Flag indicating whether the current device is "voice capable".
+         If true, this means that the device supports circuit-switched
+         (i.e. voice) phone calls over the telephony network, and is
+         allowed to display the in-call UI while a cellular voice call is
+         active.  This can be overridden to false for "data only" devices
+         which can't make voice calls and don't support any in-call UI.
+
+         Note: this flag is subtly different from the
+         PackageManager.FEATURE_TELEPHONY system feature, which is
+         available on *any* device with a telephony radio, even if the
+         device is data-only. -->
     <bool name="config_voice_capable">false</bool>
 
+    <!-- Flag indicating whether the current device allows sms service.
+         If true, this means that the device supports both sending and
+         receiving sms via the telephony network.
+         This can be overridden to false for "data only" devices
+         which can't send and receive sms message.
+
+         Note: Disable SMS also disable voicemail waiting sms,
+               cell broadcasting sms, and MMS. -->
     <bool name="config_sms_capable">true</bool>
+
+    <!-- True will enable the electron beam screen-off animation. -->
+    <!-- bool name="config_screenOffAnimation">true</bool -->
+
+<!-- Hardware 'face' keys present on the device, stored as a bit field.
+	         This integer should equal the sum of the corresponding value for each
+	         of the following keys present:
+	             1 - Home
+	             2 - Back
+	             4 - Menu
+	             8 - Search
+	            16 - App switch
+	         For example, a device with Home, Back and Menu keys would set this
+	         config to 7. -->
+	    <!-- integer name="config_deviceHardwareKeys">2</integer -->
+  
+    <bool name="config_showNavigationBar">true</bool>
     
-    <bool name="config_screenOffAnimation">false</bool>
-   
     <bool translatable="false" name="config_wifi_dual_band_support">false</bool>
     
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
@@ -52,4 +100,6 @@
     <integer name="config_lowBatteryCloseWarningLevel">15</integer>
     
     <integer name="config_lowBatteryWarningLevel">10</integer>
+    
+    <string name="config_datause_iface">wlan0</string>
 </resources>

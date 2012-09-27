@@ -28,7 +28,8 @@ PRODUCT_COPY_FILES += \
 #Ramdisk and boot
 PRODUCT_COPY_FILES += \
 	$(LOCAL_KERNEL):kernel.img \
-        device/rockchip/rk2918/init.rc:root/init.rc \
+	device/rockchip/rk2918/init.trace.rc:root/init.trace.rc \
+	device/rockchip/rk2918/init.usb.rc:root/init.usb.rc \
         device/rockchip/rk2918/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
 	device/rockchip/rk2918/init.rk29board.rc:root/init.rk29board.rc \
         device/rockchip/rk2918/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
@@ -39,7 +40,9 @@ PRODUCT_COPY_FILES += \
         device/rockchip/rk2918/initlogo.rle:root/initlogo.rle \
         device/rockchip/rk2918/initlogo.rle:recovery/root/initlogo.rle \
 	device/rockchip/rk2918/prebuilt/misc.img:recovery/root/misc.img \
-        device/rockchip/rk2918/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc 
+	device/rockchip/rk2918/prebuilt/misc.img:root/misc.img \
+        device/rockchip/rk2918/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc \
+	device/rockchip/rk2918/init.rc:root/init.rc \
 
 #Rktools and custom boot/recovery img
 PRODUCT_COPY_FILES += \
@@ -53,6 +56,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/ip-down:system/etc/ppp/ip-down \
     $(LOCAL_PATH)/configs/ip-up:system/etc/ppp/ip-up \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/configs/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
@@ -74,24 +78,38 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
-    
+
+# Audio
+PRODUCT_COPY_FILES += \
+    device/rockchip/rk2918/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    device/rockchip/rk2918/configs/audio_effects.conf:system/etc/audio_effects.conf
+
 PRODUCT_PACKAGES := \
     HoloSpiralWallpaper \
     LiveWallpapersPicker \
     VisualizationWallpapers \
 
 PRODUCT_PACKAGES += \
-    Camera
+    Camera \
+    Launcher2 
 
 PRODUCT_PACKAGES += \
     audio.primary.default \
-    audio_policy.default
+    audio_policy.default \
+    tinyplay \
+    tinycap \
+    tinymix \
+    audio.a2dp.default \
+    audio.usb.default \
+    libtinyalsa \
+    libaudioutils \
+    sensors.rk29board
+	
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -127,6 +145,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.additionalmounts=/mnt/external_sd \
     ro.vold.switchablepair=/mnt/sdcard,/mnt/external_sd \
     persist.sys.vold.switchexternal=0
+
+# Set default USB interface
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+	persist.sys.usb.config=mass_storage	
+
+
+#Hal port
+PRODUCT_PACKAGES += \
+	camera.rk29board \
 
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay

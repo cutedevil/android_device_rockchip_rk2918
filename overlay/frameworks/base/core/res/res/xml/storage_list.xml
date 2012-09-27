@@ -31,33 +31,23 @@
 
       A storage should not have both emulated and removable set to true
 -->
-
 <StorageList xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <!-- removable is not set in nosdcard product -->
     <storage android:mountPoint="/mnt/sdcard"
     		 android:storageDescription="@string/storage_internal"
-    		 android:primary="true"
-                 android:emulated="false"
-                 android:allowMassStorage="true" 
-    		 android:removable="false" 
-                 android:mtpReserve="100"
-                 android:maxFileSize="0" />
-
+		 android:primary="true"
+		 android:emulated="false"
+		 android:mtpReserve="100"
+    		 android:allowMassStorage="true" />
     <storage android:mountPoint="/mnt/external_sd"
-    		 android:storageDescription="@string/storage_sd_card" 
-                 android:primary="false"
-                 android:emulated="false"
+    		 android:storageDescription="@string/storage_sd_card"
+    		 android:primary="false"
     		 android:removable="true"
-                 android:allowMassStorage="true"
-                 android:mtpReserve="100"
-                 android:maxFileSize="0" />
-
+    		 android:mtpReserve="100"
+		 android:allowMassStorage="true" />
     <storage android:mountPoint="/mnt/usb_storage"
     		 android:storageDescription="@string/storage_usb"
-                 android:primary="false"
-                 android:emulated="false"
+		 android:primary="false"
     		 android:removable="true"
-                 android:mtpReserve="100"
-                 android:maxFileSize="0" />
-
+		android:mtpReserve="100" />
 </StorageList>

@@ -19,8 +19,8 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 # Use the non-open-source parts, if they're present
 -include vendor/rockchip/rk2918/BoardConfigVendor.mk
 
-BOARD_USES_GENERIC_AUDIO := true
-USE_CAMERA_STUB := true
+
+USE_CAMERA_STUB := false
 
 BOARD_USES_HC_RADIO := true
 
@@ -44,10 +44,21 @@ BOARD_EGL_CFG := device/rockchip/rk2918/egl.cfg
 USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 BOARD_USES_HWCOMPOSER := false
-BOARD_USE_SKIA_LCDTEXT := true
-BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
-
+#BOARD_USE_SKIA_LCDTEXT := true
+#BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
+#TARGET_USES_GL_VENDOR_EXTENSIONS := true
+#TARGET_DISABLE_TRIPLE_BUFFERING := false
+DEVICE_RESOLUTION := 800x480
 TARGET_USES_ION := true
+
+# Camera Setup
+USE_CAMERA_STUB := false
+BOARD_CAMERA_USE_MM_HEAP := true
+
+#Audio
+BOARD_USES_ALSA_AUDIO := true
+
+TARGET_SPECIFIC_HEADER_PATH := device/rockchip/rk2918/include
 
 #recovery
 TARGET_RECOVERY_INITRC := device/rockchip/rk2918/recovery_init.rc
@@ -64,20 +75,30 @@ TARGET_USE_CUSTOM_SECOND_LUN_NUM := 1
 BOARD_VOLD_MAX_PARTITIONS := 20
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/rockchip/rk2918/releasetools/pascal2_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/rockchip/rk2918/releasetools/pascal2_img_from_target_files
+#TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/rockchip/rk2918/releasetools/rk2918_ota_from_target_files
+#TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/rockchip/rk2918/releasetools/rk2918_img_from_target_files
 TARGET_CUSTOM_RELEASETOOL := ./device/rockchip/rk2918/releasetools/squisher
 
-#Wlan
-BOARD_WLAN_DEVICE := rtl8192cu
+# Wifi stuff
+BOARD_WIFI_VENDOR := realtek
 
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/wlan.ko"
-WIFI_DRIVER_FW_PATH_PARAM   := ""
-WIFI_DRIVER_FW_PATH_STA     := ""
-WIFI_DRIVER_FW_PATH_AP      := ""
-WIFI_DRIVER_FW_PATH_P2P     := ""
-WIFI_DRIVER_MODULE_NAME     := "wlan"
-WIFI_DRIVER_MODULE_ARG      := ""
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_rtl
+
+BOARD_WLAN_DEVICE := rtl8192cu
+WIFI_DRIVER_MODULE_NAME   := wlan
+WIFI_DRIVER_MODULE_PATH   := "/system/lib/modules/wlan.ko"
+
+WIFI_DRIVER_MODULE_ARG    := ""
+WIFI_FIRMWARE_LOADER      := ""
+WIFI_DRIVER_FW_PATH_STA   := ""
+WIFI_DRIVER_FW_PATH_AP    := ""
+WIFI_DRIVER_FW_PATH_P2P   := ""
+WIFI_DRIVER_FW_PATH_PARAM := ""
+
+TARGET_CUSTOM_WIFI := ../../hardware/realtek/wlan/libhardware_legacy/wifi/wifi_realtek.c
+
 
 # Partitions 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8936582
@@ -87,6 +108,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 2013200384
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_SDCARD_INTERNAL := true
 
 TARGET_PREBUILT_KERNEL := device/rockchip/rk2918/kernel
 
@@ -94,7 +116,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 
 BOARD_USE_LEGACY_TOUCHSCREEN := true
 
-COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE -DNO_RGBX_8888
+COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE -DNO_RGBX_8888 -DMISSING_GRALLOC_BUFFERS
 
 #Bluethoot
 BOARD_HAVE_BLUETOOTH :=true
