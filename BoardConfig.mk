@@ -49,6 +49,9 @@ BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 
 TARGET_USES_ION := true
 
+# For WebKit rendering issue	
+TARGET_FORCE_CPU_UPLOAD := true
+
 #recovery
 TARGET_RECOVERY_INITRC := device/rockchip/pascal2/recovery_init.rc
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/rockchip/pascal2/recovery_keys.c

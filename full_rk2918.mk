@@ -43,7 +43,7 @@ PRODUCT_COPY_FILES += \
 
 #Rktools and custom boot/recovery img
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/rockchip/pascal2/rktools,rktools) 
+	$(call find-copy-subdir-files,*,device/rockchip/rk2918/rktools,rktools) 
 
 
 
@@ -62,7 +62,7 @@ PRODUCT_COPY_FILES += \
 
 # init.d scripts
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/rockchip/pascal2/init.d,system/etc/init.d)
+	$(call find-copy-subdir-files,*,device/rockchip/rk2918/init.d,system/etc/init.d)
 
 # Configuration files
 
@@ -139,7 +139,7 @@ PRODUCT_COPY_FILES += \
 
 # other kernel modules not in ramdisk
 PRODUCT_COPY_FILES += $(foreach module,\
-	$(filter-out $(RAMDISK_MODULES),$(wildcard device/rockchip/pascal2/modules/*.ko)),\
+	$(filter-out $(RAMDISK_MODULES),$(wildcard device/rockchip/rk2918/modules/*.ko)),\
 	$(module):system/lib/modules/$(notdir $(module)))
 
 PRODUCT_AAPT_CONFIG := large mdpi

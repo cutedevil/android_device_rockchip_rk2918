@@ -1,4 +1,4 @@
-# Inherit device configuration for ROCKcHIP
+# Inherit device configuration for ROCKCHIP
 $(call inherit-product, device/rockchip/rk2918/full_rk2918.mk)
 
 # Inherit some common cyanogenmod stuff.
