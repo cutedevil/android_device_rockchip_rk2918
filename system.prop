@@ -12,11 +12,12 @@ ril.function.dataonly=1
 
 #ro.sf.hwrotation=270
 sys.hwc.compose_policy=6
-opengl.vivante.texture=1
 ro.sf.fakerotation=true
+hwui.render_dirty_regions=false
 
 ro.config.facelock=enable_facelock
 persist.facelock.detect_cutoff=5000
 persist.facelock.recog_cutoff=5000
 persist.sys.usb.config=mass_storage,adb
 persist.sys.strictmode.visual=false
+ro.disable_phablet_ui=0

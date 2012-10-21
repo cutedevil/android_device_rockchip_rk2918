@@ -25,29 +25,29 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-#Ramdisk and boot
+# Ramdisk
 PRODUCT_COPY_FILES += \
-	$(LOCAL_KERNEL):kernel.img \
-	device/rockchip/rk2918/init.trace.rc:root/init.trace.rc \
-	device/rockchip/rk2918/init.usb.rc:root/init.usb.rc \
-        device/rockchip/rk2918/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
-	device/rockchip/rk2918/init.rk29board.rc:root/init.rk29board.rc \
-        device/rockchip/rk2918/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
-        device/rockchip/rk2918/rk29xxnand_ko.ko.3.0.8+:recovery/root/rk29xxnand_ko.ko.3.0.8+ \
-	device/rockchip/rk2918/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
-	device/rockchip/rk2918/prebuilt/init:root/init \
-	device/rockchip/rk2918/prebuilt/default.prop:recovery/root/default.prop \
-        device/rockchip/rk2918/initlogo.rle:root/initlogo.rle \
-        device/rockchip/rk2918/initlogo.rle:recovery/root/initlogo.rle \
-	device/rockchip/rk2918/prebuilt/misc.img:recovery/root/misc.img \
-	device/rockchip/rk2918/prebuilt/misc.img:root/misc.img \
-        device/rockchip/rk2918/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc \
-	device/rockchip/rk2918/init.rc:root/init.rc \
-
-#Rktools and custom boot/recovery img
+    $(LOCAL_PATH)/ramdisk/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
+    $(LOCAL_PATH)/ramdisk/init:root/init \
+    $(LOCAL_PATH)/ramdisk/initlogo.rle:root/initlogo.rle \
+    $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
+    $(LOCAL_PATH)/ramdisk/init.usb.rc:root/init.usb.rc \
+    $(LOCAL_PATH)/ramdisk/init.trace.rc:root/init.trace.rc \
+    $(LOCAL_PATH)/ramdisk/init.rk29board.rc:root/init.rk29board.rc \
+    $(LOCAL_PATH)/ramdisk/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
+    $(LOCAL_PATH)/ramdisk/misc.img:root/misc.img \
+    $(LOCAL_PATH)/ramdisk/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
+    $(LOCAL_PATH)/ramdisk/bcm4329_cybertan.hcd:root/bcm4329_cybertan.hcd \
+    $(LOCAL_PATH)/ramdisk/bcm4329_samsung.hcd:root/bcm4329_samsung.hcd \
+    $(LOCAL_PATH)/ramdisk/bcm4329_usi.hcd:root/bcm4329_usi.hcd \
+# Recovery
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/rockchip/rk2918/rktools,rktools) 
-
+    $(LOCAL_PATH)/ramdisk/rk29xxnand_ko.ko.3.0.8+:recovery/root/rk29xxnand_ko.ko.3.0.8+ \
+    $(LOCAL_PATH)/ramdisk/initlogo.rle:recovery/root/initlogo.rle \
+    $(LOCAL_PATH)/ramdisk/init.rk29board.rc:recovery/root/init.rk29board.rc \
+    $(LOCAL_PATH)/ramdisk/init.rk29board.usb.rc:recovery/root/init.rk29board.usb.rc \
+    $(LOCAL_PATH)/ramdisk/misc.img:recovery/root/misc.img \
+    $(LOCAL_PATH)/ramdisk/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc
 
 
 # Prebuilt configs
@@ -55,35 +55,41 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/call-pppd:system/etc/ppp/call-pppd \
     $(LOCAL_PATH)/configs/ip-down:system/etc/ppp/ip-down \
     $(LOCAL_PATH)/configs/ip-up:system/etc/ppp/ip-up \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(LOCAL_PATH)/configs/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    $(LOCAL_PATH)/configs/qwerty.idc:/system/usr/idc/qwerty.idc \
-    $(LOCAL_PATH)/configs/qwerty2.idc:/system/usr/idc/qwerty2.idc
+    $(LOCAL_PATH)/configs/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl
 
 
 # init.d scripts
 PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,device/rockchip/rk2918/init.d,system/etc/init.d)
 
+#Rktools and custom boot/recovery img
+PRODUCT_COPY_FILES += \
+	$(call find-copy-subdir-files,*,device/rockchip/rk2918/rktools,rktools) 
+
 # Configuration files
 
+# These are the hardware-specific feature permissions
 PRODUCT_COPY_FILES += \
-  frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    $(LOCAL_PATH)/configs/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
-
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
+    
 # Audio
 PRODUCT_COPY_FILES += \
     device/rockchip/rk2918/configs/audio_policy.conf:system/etc/audio_policy.conf \
@@ -95,21 +101,13 @@ PRODUCT_PACKAGES := \
     VisualizationWallpapers \
 
 PRODUCT_PACKAGES += \
-    Camera \
-    Launcher2 
+    Camera
 
 PRODUCT_PACKAGES += \
     audio.primary.default \
     audio_policy.default \
-    tinyplay \
-    tinycap \
-    tinymix \
     audio.a2dp.default \
     audio.usb.default \
-    libtinyalsa \
-    libaudioutils \
-    sensors.rk29board
-	
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -117,7 +115,8 @@ PRODUCT_PACKAGES += \
     
 PRODUCT_PACKAGES += \
     make_ext4fs \
-    setup_fs
+    setup_fs \
+    static_busybox \
 
 PRODUCT_PROPERTY_OVERRIDES := \
     service.adb.root=1 \
@@ -142,21 +141,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
     view.touch_slop=2 \
     qemu.sf.lcd_density=120 \
     view.minimum_fling_velocity=25 \
-    ro.additionalmounts=/mnt/external_sd \
+   ro.additionalmounts=/mnt/external_sd \
     ro.vold.switchablepair=/mnt/sdcard,/mnt/external_sd \
     persist.sys.vold.switchexternal=0
 
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mass_storage	
 
 
-#Hal port
-PRODUCT_PACKAGES += \
-	camera.rk29board \
-
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay
 
 # copy the builder 
 PRODUCT_COPY_FILES += \
@@ -174,9 +169,8 @@ PRODUCT_CHARACTERISTICS := tablet
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-TARGET_BOOTANIMATION_NAME := horizontal-1024x600
-
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+
 
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 $(call inherit-product, build/target/product/full_base.mk)
