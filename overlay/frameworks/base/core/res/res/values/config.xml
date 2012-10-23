@@ -82,8 +82,7 @@
 	         For example, a device with Home, Back and Menu keys would set this
 	         config to 7. -->
 	    <!-- integer name="config_deviceHardwareKeys">2</integer -->
-  
-    <bool name="config_showNavigationBar">true</bool>
+ 
     
     <bool translatable="false" name="config_wifi_dual_band_support">false</bool>
     
@@ -94,8 +93,6 @@
     <integer name="config_screenBrightnessDim">30</integer>
     
     <integer name="db_connection_pool_size">3</integer>
-    
-    <integer name="config_cursorWindowSize">2048</integer>
     
     <integer name="config_lowBatteryCloseWarningLevel">15</integer>
     

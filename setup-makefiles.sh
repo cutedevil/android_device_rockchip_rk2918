@@ -1,5 +1,5 @@
-VENDOR=rockchip
-DEVICE=rk2918
+VENDOR=yuandao
+DEVICE=n70
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 
