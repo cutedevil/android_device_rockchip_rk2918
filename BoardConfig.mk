@@ -56,7 +56,11 @@ USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 BOARD_USE_SKIA_LCDTEXT := true
 
+# For WebKit rendering issue	
+TARGET_FORCE_CPU_UPLOAD := true
+
 TARGET_HAVE_HDMI_OUT := true
+
 
 # recovery
 TARGET_RECOVERY_INITRC := device/rockchip/rk2918/recovery.init.rc
@@ -97,7 +101,7 @@ TARGET_PREBUILT_KERNEL := device/rockchip/rk2918/kernel
 
 TARGET_BOOTANIMATION_PRELOAD := true
 
-BOARD_HAVE_BLUETOOTH := false
+BOARD_HAVE_BLUETOOTH := true
 
 #TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/rockchip/rk2918/releasetools/ota_from_target_files
 TARGET_CUSTOM_RELEASETOOL := ./device/rockchip/rk2918/releasetools/squisher
