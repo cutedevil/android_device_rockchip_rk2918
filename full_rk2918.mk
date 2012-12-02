@@ -88,6 +88,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
     
+# OTG
+PRODUCT_COPY_FILES += \
+    device/rockchip/rk2918/prebuilt/usb_modeswitch:system/bin/usb_modeswitch \
+    device/rockchip/rk2918/prebuilt/usb_modeswitch.sh:system/bin/usb_modeswitch.sh \
+    $(call find-copy-subdir-files,*,device/rockchip/rk2918/prebuilt/usb_modeswitch.d,system/etc/usb_modeswitch.d)
 # Audio
 PRODUCT_COPY_FILES += \
     device/rockchip/rk2918/configs/audio_policy.conf:system/etc/audio_policy.conf \
@@ -99,7 +104,7 @@ PRODUCT_PACKAGES := \
     VisualizationWallpapers \
 
 PRODUCT_PACKAGES += \
-    Camera
+    Camera \
 
 PRODUCT_PACKAGES += \
     audio.primary.default \
@@ -136,7 +141,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.vold.switchexternal=0 \
     hwui.render_dirty_regions=false \
     qemu.hw.mainkeys=0 \
-    ro.sf.lcd_density=120 \
+    ro.sf.lcd_density=160 \
     sys.hwc.compose_policy=6 \
 
 DEVICE_PACKAGE_OVERLAYS += \
