@@ -141,7 +141,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.vold.switchexternal=0 \
     hwui.render_dirty_regions=false \
     qemu.hw.mainkeys=0 \
-    ro.sf.lcd_density=160 \
     sys.hwc.compose_policy=6 \
 
 DEVICE_PACKAGE_OVERLAYS += \
