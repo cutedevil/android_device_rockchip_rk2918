@@ -1,5 +1,6 @@
 # Inherit device configuration for rockchip.
 $(call inherit-product, device/rockchip/rk2918/full_rk2918.mk)
+$(call inherit-product, vendor/cm/config/gsm.mk)
 
 # Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)

@@ -28,35 +28,30 @@ TARGET_USES_ION := true
 
 BOARD_USES_HC_RADIO := true
 
-TARGET_NO_BOOTLOADER := true
-
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
-ARCH_ARM_HAVE_VFP := true
-TARGET_ARCH_VARIANT_CPU := cortex-a8
-TARGET_ARCH_VARIANT_FPU := neon
-ARCH_ARM_HAVE_NEON := true
-ARCH_ARM_HAVE_TLS_REGISTER := true
-ARCH_ARM_HAVE_ARMV7A := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+ARCH_ARM_HAVE_TLS_REGISTER := true
+TARGET_CPU_SMP := true
 TARGET_ARCH := arm
 
+
+TARGET_NO_BOOTLOADER := true
 BOARD_KERNEL_BASE := 0x60400000
 BOARD_KERNEL_CMDLINE := 
 BOARD_PAGE_SIZE := 16384
-
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := rk29sdk
 TARGET_BOOTLOADER_BOARD_NAME := rk29board
-
+#Graphics
 BOARD_EGL_CFG := device/rockchip/rk2918/egl.cfg
 USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 BOARD_USE_SKIA_LCDTEXT := true
-
+BOARD_USE_LEGACY_UI := true
+COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE
 # For WebKit rendering issue	
 TARGET_FORCE_CPU_UPLOAD := true
 
@@ -71,6 +66,7 @@ BOARD_NO_RGBX_8888 := true
 BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_PRE_COMMAND := "busybox dd if=/misc.img of=/dev/block/mtd/by-name/misc; sync"
+
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -105,5 +101,5 @@ TARGET_BOOTANIMATION_PRELOAD := true
 BOARD_HAVE_BLUETOOTH := true
 
 #TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/rockchip/rk2918/releasetools/ota_from_target_files
-TARGET_CUSTOM_RELEASETOOL := ./device/rockchip/rk2918/releasetools/squisher
+TARGET_CUSTOM_RELEASETOOL := ./device/rockchip/rk2918/releasetools/squisher_cm
 
