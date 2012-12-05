@@ -30,7 +30,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
     $(LOCAL_PATH)/ramdisk/init:root/init \
     $(LOCAL_PATH)/ramdisk/initlogo.rle:root/initlogo.rle \
-    $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
     $(LOCAL_PATH)/ramdisk/init.usb.rc:root/init.usb.rc \
     $(LOCAL_PATH)/ramdisk/init.trace.rc:root/init.trace.rc \
     $(LOCAL_PATH)/ramdisk/init.rk29board.rc:root/init.rk29board.rc \
@@ -40,6 +39,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/bcm4329_cybertan.hcd:root/bcm4329_cybertan.hcd \
     $(LOCAL_PATH)/ramdisk/bcm4329_samsung.hcd:root/bcm4329_samsung.hcd \
     $(LOCAL_PATH)/ramdisk/bcm4329_usi.hcd:root/bcm4329_usi.hcd \
+    $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
+
 # Recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/rk29xxnand_ko.ko.3.0.8+:recovery/root/rk29xxnand_ko.ko.3.0.8+ \
@@ -136,12 +137,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     opengl.vivante.texture=1 \
     ro.opengles.version=131072 \
     accelerometer.invert_x=1 \
-    ro.additionalmounts=/mnt/external_sd \
-    ro.vold.switchablepair=/mnt/sdcard,/mnt/external_sd \
-    persist.sys.vold.switchexternal=0 \
     hwui.render_dirty_regions=false \
     qemu.hw.mainkeys=0 \
-    ro.sf.lcd_density=110 \
+    ro.sf.lcd_density=120 \
     sys.hwc.compose_policy=6 \
 
 DEVICE_PACKAGE_OVERLAYS += \
@@ -165,7 +163,7 @@ PRODUCT_COPY_FILES += $(foreach module,\
 	$(module):system/lib/modules/$(notdir $(module)))
 
 #PRODUCT_AAPT_CONFIG := large xlarge mdpi
-#PRODUCT_AAPT_PREF_CONFIG := mdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 PRODUCT_CHARACTERISTICS := tablet
 
