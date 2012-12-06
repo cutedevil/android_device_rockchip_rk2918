@@ -32,9 +32,7 @@ sysclktz 0
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
-    export ANDROID_STORAGE /storage
-    export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/sdcard1
+    export EXTERNAL_STORAGE /mnt/sdcard
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export EXT_DIRECTORY /sd-ext
@@ -47,23 +45,16 @@ sysclktz 0
 # Backward compatibility
     symlink /system/etc /etc
     symlink /sys/kernel/debug /d
-    mkdir /storage 0050 system sdcard_r
-    mkdir /storage/sdcard0 0000 system system
-    mkdir /storage/sdcard1 0000 system system
-    mkdir /storage/usbdisk0 0775 system system
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard0 /mnt/sdcard0
-    symlink /storage/sdcard1 /emmc
-    symlink /storage/sdcard1 /mnt/sdcard1
-    symlink /storage/usbdisk0 /usbdisk0
-    symlink /storage/usbdisk0 /mnt/usbdisk0
-
+    symlink /mnt/sdcard /sdcard
 
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
     symlink /system/vendor /vendor
    
 
+# create mountpoints
+    mkdir /mnt/sdcard 0000 system system
+    mkdir /emmc 0000 system system
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
