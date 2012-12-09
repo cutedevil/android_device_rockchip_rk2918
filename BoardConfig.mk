@@ -19,9 +19,15 @@ PRODUCT_CHARACTERISTICS := tablet
 # Use the non-open-source parts, if they're present
 -include vendor/rockchip/rk2918/BoardConfigVendor.mk
 
-BOARD_USES_GENERIC_AUDIO := true
+#Audio
+BOARD_USES_ALSA_AUDIO := true
+
+
+#BOARD_USES_GENERIC_AUDIO := true
 #BOARD_USES_AUDIO_LEGACY := true
-USE_CAMERA_STUB := true
+#Camera
+BOARD_USES_LEGACY_CAMERA := true
+#USE_CAMERA_STUB := true
 
 BOARD_NEEDS_MEMORYHEAPPMEM := true
 TARGET_USES_ION := true

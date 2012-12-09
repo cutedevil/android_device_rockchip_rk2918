@@ -36,9 +36,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
     $(LOCAL_PATH)/ramdisk/misc.img:root/misc.img \
     $(LOCAL_PATH)/ramdisk/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
-    $(LOCAL_PATH)/ramdisk/bcm4329_cybertan.hcd:root/bcm4329_cybertan.hcd \
-    $(LOCAL_PATH)/ramdisk/bcm4329_samsung.hcd:root/bcm4329_samsung.hcd \
-    $(LOCAL_PATH)/ramdisk/bcm4329_usi.hcd:root/bcm4329_usi.hcd \
     $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
 
 # Recovery
@@ -103,15 +100,25 @@ PRODUCT_PACKAGES := \
     HoloSpiralWallpaper \
     LiveWallpapersPicker \
     VisualizationWallpapers \
-
+#Camera
 PRODUCT_PACKAGES += \
     Camera \
 
+#Audio
 PRODUCT_PACKAGES += \
-    audio.primary.default \
-    audio_policy.default \
-    audio.a2dp.default \
-    audio.usb.default \
+   	audio.primary.default \
+	audio.primary.rk29board \
+	audio_policy.default \
+	tinyplay \
+   	tinycap \
+    	tinymix \
+	audio.a2dp.default \
+    	audio.usb.default \
+    	libtinyalsa \
+    	libaudioutils
+#Hal modules
+PRODUCT_PACKAGES += \
+   	power.rk29board \
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -151,7 +158,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mass_storage	
+	persist.sys.usb.config=mtp	
 
 # copy the builder 
 PRODUCT_COPY_FILES += \
