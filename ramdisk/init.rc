@@ -374,7 +374,7 @@ on boot
 
     class_start core
     class_start main
-	chown system graphics /dev/galcore
+    chown system graphics /dev/galcore
     chmod 0666 /dev/galcore
     chown system camera /dev/video0
     chmod 0660 /dev/video0
