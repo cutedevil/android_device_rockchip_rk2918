@@ -1,7 +1,0 @@
-########################################################
-# Integrated System Solution Corp. Bluetooth Device
-
-DefaultVendor= 0x1131
-DefaultProduct=0x1004
-
-Configuration=2

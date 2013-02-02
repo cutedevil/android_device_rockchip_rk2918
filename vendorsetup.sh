@@ -21,5 +21,4 @@
 # function: add_lunch_combo generic-eng
 
 add_lunch_combo full_rk2918-userdebug
-add_lunch_combo rootbox_rk2918-userdebug
 add_lunch_combo cm_rk2918-userdebug

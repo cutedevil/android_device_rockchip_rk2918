@@ -1,12 +1,9 @@
 #
-# system.prop
+# system.prop for rk29sdk
 #
-
-wifi.interface=wlan0
-wifi.supplicant_scan_interval=150
 rild.libargs=-d_/dev/ttyUSB1
 ril.pppchannel=/dev/ttyUSB2
 rild.libpath=/system/lib/libril-rk29-dataonly.so
 ril.function.dataonly=1
-ro.sf.hwrotation=0
-ro.hdmi.enable=true
+ro.product.usbfactory=rockchip_usb
+
