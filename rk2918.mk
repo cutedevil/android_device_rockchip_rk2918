@@ -26,24 +26,26 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := xlarge mdpi normal xhdpi hdpi
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=160
+    ro.sf.lcd_density=120
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/root/init:root/init \
-	$(LOCAL_PATH)/root/init.rc:root/init.rc \
-	$(LOCAL_PATH)/root/init.rk29board.rc:root/init.rk29board.rc \
-	$(LOCAL_PATH)/root/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
-	$(LOCAL_PATH)/root/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
-	$(LOCAL_PATH)/root/rk29xxnand_ko.ko.3.0.8+:root/rk29xxnand_ko.ko.3.0.8+ \
-	$(LOCAL_PATH)/root/sbin/e2fsck:root/sbin/e2fsck \
-	$(LOCAL_PATH)/root/sbin/mkdosfs:root/sbin/mkdosfs \
-	$(LOCAL_PATH)/root/sbin/mke2fs:root/sbin/mke2fs \
-	$(LOCAL_PATH)/root/sbin/readahead:root/sbin/readahead \
-	$(LOCAL_PATH)/root/sbin/resize2fs:root/sbin/resize2fs
-#firmware
+	$(LOCAL_PATH)/ramdisk/init:root/init \
+	$(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
+	$(LOCAL_PATH)/ramdisk/init.rk29board.rc:root/init.rk29board.rc \
+	$(LOCAL_PATH)/ramdisk/init.rk29board.usb.rc:root/init.rk29board.usb.rc \
+	$(LOCAL_PATH)/ramdisk/ueventd.rk29board.rc:root/ueventd.rk29board.rc \
+	$(LOCAL_PATH)/ramdisk/rk29xxnand.ko:root/rk29xxnand.ko \
+
+
+# Recovery-Ramdisk
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
+    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
+    $(LOCAL_PATH)/ramdisk/rk29xxnand.ko:recovery/root/rk29xxnand.ko \
+    $(LOCAL_PATH)/ramdisk/init.rk29board.rc:recovery/root/init.rk29board.rc \
+    $(LOCAL_PATH)/ramdisk/init.rk29board.usb.rc:recovery/root/init.rk29board.usb.rc \
+    $(LOCAL_PATH)/ramdisk/misc.img:recovery/root/misc.img \
+    $(LOCAL_PATH)/ramdisk/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc
 
 # USB mode switch
 PRODUCT_COPY_FILES += \
@@ -70,12 +72,12 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/config/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
+PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/p2p_supplicant.sh:system/bin/p2p_supplicant.sh \
     $(LOCAL_PATH)/prebuilt/wpa_supplicant.sh:system/bin/wpa_supplicant.sh
 
-PRODUCT_PACKAGES += \
-	librs_jni \
-	com.android.future.usb.accessory
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
@@ -92,15 +94,10 @@ PRODUCT_COPY_FILES += $(foreach module,\
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
-	make_ext4fs \
 	hciconfig \
 	hcitool \
-	rk_afptool \
 	tinyplay \
-	rk_img_unpack \
-	rk_img_maker \
-	rk_mkkrnlimg \
-	rk_mkbootimg
+	rkcrc \
 
 #PRODUCT_PACKAGES += libstagefright_ffmpeg
 
@@ -109,6 +106,7 @@ PRODUCT_PACKAGES += \
 
 # Packages
 PRODUCT_PACKAGES := \
+	audio.a2dp.default \
     com.android.future.usb.accessory \
     DeviceSettings
 
@@ -120,6 +118,7 @@ PRODUCT_PACKAGES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     static_busybox \
+    make_ext4fs \
     setup_fs
 
 # Live Wallpapers
@@ -135,14 +134,14 @@ PRODUCT_PACKAGES += \
     librs_jni
 
 # Prebuilt kernel
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
+#ifeq ($(TARGET_PREBUILT_KERNEL),)
+#	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
+#else
+#	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+#endif
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_KERNEL):kernel
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \

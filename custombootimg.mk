@@ -1,31 +1,40 @@
-RK_UPDATE_PATH := $(PRODUCT_OUT)/rkupdate
-INSTALLED_BOOTIMAGE_TARGET := $(RK_UPDATE_PATH)/boot.img
-INSTALLED_RECOVERYIMAGE_TARGET := $(RK_UPDATE_PATH)/recovery.img
-MKKRNLIMG := $(HOST_OUT_EXECUTABLES)/rk_mkkrnlimg
+#
+# Copyright (C) 2012 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-$(INSTALLED_BOOTIMAGE_TARGET) : $(MKKRNLIMG) $(INSTALLED_RAMDISK_TARGET)
-	$(call pretty,"Target boot image: $@")
-	mkdir -p $(RK_UPDATE_PATH)
-	$(hide) $(MKKRNLIMG) -a $(INSTALLED_RAMDISK_TARGET) $@
-$(INSTALLED_RECOVERYIMAGE_TARGET) : $(MKKRNLIMG) $(recovery_ramdisk)
-	@echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
-	mkdir -p $(RK_UPDATE_PATH)
-	$(hide) $(MKKRNLIMG) -a $(recovery_ramdisk) $@
+LOCAL_PATH := $(call my-dir)
 
-$(RK_UPDATE_PATH)/system.img: $(RK_UPDATE_PATH)/system.img $(FULL_SYSTEMIMAGE_DEPS) $(INSTALLED_FILES_FILE)
-	@echo -e ${CL_CYN}"----- Making rk_system image ------"${CL_RST}
-	$(HOST_OUT_EXECUTABLES)/simg2img $(BUILT_SYSTEMIMAGE) $@
-$(RK_UPDATE_PATH)/update.img: $(INSTALLED_BOOTIMAGE_TARGET) $(INSTALLED_RECOVERYIMAGE_TARGET) $(RK_UPDATE_PATH)/system.img
-	cp device/rockchip/rk2918/package/* $(RK_UPDATE_PATH)
-	cd $(RK_UPDATE_PATH) && $(HOST_OUT_EXECUTABLES)/rk_afptool -pack $(RK_UPDATE_PATH) update.img
-$(RK_UPDATE_PATH)/flash.img: $(RK_UPDATE_PATH)/update.img
-	cd $(RK_UPDATE_PATH) && $(HOST_OUT_EXECUTABLES)/rk_img_maker "RK29xxLoader(L)_V2.28.bin" update.img flash.img
-.PHONY: rk_systemimage rk_updateimage rk_flashimage rk_clean
-rk_systemimage: $(RK_UPDATE_PATH)/system.img
+RKCRC := $(HOST_OUT_UTILITIES)/rkcrc
 
-rk_updateimage: $(RK_UPDATE_PATH)/update.img
+GZ_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.gz
+GZ_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.gz
 
-rk_flashimage: $(RK_UPDATE_PATH)/flash.img
+CPIO_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.cpio
+CPIO_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.cpio
 
-rk_clean:
-	rm $(RK_UPDATE_PATH) -rf
+
+INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
+INSTALLED_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.img
+
+$(INSTALLED_BOOTIMAGE_TARGET): $(INSTALLED_RAMDISK_TARGET) $(RKCRC) 
+	$(call pretty,"Boot image: $@")
+	$(hide) cd $(PRODUCT_OUT)/root && find . | cpio --quiet -o -H newc | gzip -n > $(GZ_BOOTIMAGE_TARGET)
+	$(hide)	$(RKCRC) -k $(GZ_BOOTIMAGE_TARGET) $@
+	@echo ----- Made boot image -------- $@
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(recovery_ramdisk) $(RKCRC) 
+	$(call pretty,"Recovery image: $@")
+	$(hide) cd $(PRODUCT_OUT)/recovery/root && find . | cpio --quiet -o -H newc | gzip -n > $(GZ_RECOVERYIMAGE_TARGET)
+	$(hide)	$(RKCRC) -k $(GZ_RECOVERYIMAGE_TARGET) $@ 
+	@echo ----- Made recovery image -------- $@
