@@ -58,6 +58,13 @@ SPECIAL_CERT_STRINGS = ("PRESIGNED", "EXTERNAL")
 
 class ExternalError(RuntimeError): pass
 
+def load_module_from_file(module_name, filename):
+    import imp
+    f = open(filename, 'r')
+    module = imp.load_module(module_name, f, filename, ('', 'U', 1))
+    f.close()
+    return module
+
 
 def Run(args, **kwargs):
   """Create and return a subprocess.Popen object, printing the command

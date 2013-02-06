@@ -6,4 +6,20 @@ ril.pppchannel=/dev/ttyUSB2
 rild.libpath=/system/lib/libril-rk29-dataonly.so
 ril.function.dataonly=1
 ro.product.usbfactory=rockchip_usb
+hwui.render_dirty_regions=false 
+persist.sys.ui.hw=true 
+opengl.vivante.texture=1 
+accelerometer.invert_x=1 
+sys.hwc.compose_policy=6 
+video.accelerate.hw=1 
+windowsmgr.max_events_per_sec=300 
+qemu.hw.mainkeys=0 
+ro.ril.disable.power.collapse=0
+pm.sleep_mode=1
+ro.kernel.android.checkjni=0 
+dalvik.vm.dexopt-flags=m=y,v=n,o=v,u=n 
+dalvik.vm.execution-mode=int:jit 
+ro.home_app_adj=1 
+debug.sf.hw=1 
+ro.allow.mock.location=1 
 

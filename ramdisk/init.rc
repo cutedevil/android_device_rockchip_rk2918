@@ -5,8 +5,8 @@
 #
 
 import /init.usb.rc
-import init.rk29board.usb.rc
-import /init.${ro.hardware}.rc
+import /init.rk29board.usb.rc
+import /init.rk29board.rc
 import /init.trace.rc
 
 on early-init
@@ -35,6 +35,7 @@ loglevel 3
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
+    export ANDROID_CACHE /cache
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
@@ -532,7 +533,7 @@ service ril-daemon /system/bin/rild
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw qcom_oncrpc qcom_diag log
+    group radio cache inet misc audio sdcard_r sdcard_rw qcom_oncrpc qcom_diag log diag
 
 service surfaceflinger /system/bin/surfaceflinger
     class main

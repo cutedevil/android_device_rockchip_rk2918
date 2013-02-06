@@ -16,7 +16,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-RKCRC := $(HOST_OUT_UTILITIES)/rkcrc
+RKCRC := $(HOST_OUT_EXECUTABLES)/rkcrc
 
 GZ_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.gz
 GZ_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.gz

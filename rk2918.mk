@@ -41,50 +41,21 @@ PRODUCT_COPY_FILES += \
 # Recovery-Ramdisk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
+    $(LOCAL_PATH)/ramdisk/initlogo.rle:recovery/root/initlogo.rle \
     $(LOCAL_PATH)/ramdisk/rk29xxnand.ko:recovery/root/rk29xxnand.ko \
     $(LOCAL_PATH)/ramdisk/init.rk29board.rc:recovery/root/init.rk29board.rc \
     $(LOCAL_PATH)/ramdisk/init.rk29board.usb.rc:recovery/root/init.rk29board.usb.rc \
     $(LOCAL_PATH)/ramdisk/misc.img:recovery/root/misc.img \
     $(LOCAL_PATH)/ramdisk/ueventd.rk29board.rc:recovery/root/ueventd.rk29board.rc
 
-# USB mode switch
+#Unifique prebuilt 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/usb_mode.sh:system/bin/usb_mode.sh
-
-# Audio
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/asound.conf:system/etc/asound.conf \
-    $(LOCAL_PATH)/config/audio_effects.conf:system/etc/audio_effects.conf \
-    $(LOCAL_PATH)/config/audio_policy.conf:system/etc/audio_policy.conf
-
-# EGL
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/egl.cfg:system/lib/egl/egl.cfg
-
-# Media
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
-
-# Vold
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/vold.fstab:system/etc/vold.fstab
-
-# Wifi
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/p2p_supplicant.sh:system/bin/p2p_supplicant.sh \
-    $(LOCAL_PATH)/prebuilt/wpa_supplicant.sh:system/bin/wpa_supplicant.sh
+	$(call find-copy-subdir-files,*,device/rockchip/rk2918/prebuilt,system)	
+	
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
-#Additional apps
-PRODUCT_COPY_FILES += \
-	 $(LOCAL_PATH)/prebuilt/app/RkVideoPlayer.apk:system/app/RkVideoPlayer.apk \
-	$(LOCAL_PATH)/prebuilt/app/RkExplorer.apk:system/app/RkExplorer.apk
 
 # other kernel modules not in ramdisk
 PRODUCT_COPY_FILES += $(foreach module,\
@@ -93,11 +64,14 @@ PRODUCT_COPY_FILES += $(foreach module,\
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
-	audio.usb.default \
+	audio.primary.rk29board \
+    	audio.a2dp.default \
+	libtinyalsa \
+    	libaudioutils \
 	hciconfig \
 	hcitool \
 	tinyplay \
-	rkcrc \
+	
 
 #PRODUCT_PACKAGES += libstagefright_ffmpeg
 
@@ -106,7 +80,7 @@ PRODUCT_PACKAGES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-	audio.a2dp.default \
+    rktools \
     com.android.future.usb.accessory \
     DeviceSettings
 
@@ -134,14 +108,14 @@ PRODUCT_PACKAGES += \
     librs_jni
 
 # Prebuilt kernel
-#ifeq ($(TARGET_PREBUILT_KERNEL),)
-#	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-#else
-#	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-#endif
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
 
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_KERNEL):kernel
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -166,6 +140,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_CHARACTERISTICS := tablet
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \

@@ -101,6 +101,8 @@ OPTIONS.override_device = 'auto'
 LOCAL_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 DEV_OUT_DIR = os.path.abspath(os.path.join(LOCAL_DIR, '../../../out/target/product/rk2918/'))
 
+import rk29xx_edify_generator as edify_generator
+
 def MostPopularKey(d, default):
   """Given a dict, return the key corresponding to the largest
   value.  Returns 'default' if the dict is empty."""
@@ -405,9 +407,9 @@ def WriteFullOTAPackage(input_zip, output_zip):
   #  ts = GetBuildProp("ro.build.date.utc", OPTIONS.info_dict)
   #  script.AssertOlderBuild(ts)
 
-  AppendAssertions(script, OPTIONS.info_dict)
-  device_specific.FullOTA_Assertions()
-  device_specific.FullOTA_InstallBegin()
+  #AppendAssertions(script, OPTIONS.info_dict)
+  #device_specific.FullOTA_Assertions()
+  #device_specific.FullOTA_InstallBegin()
 
   if OPTIONS.backuptool:
     script.Mount("/system")
@@ -451,8 +453,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.RunBackup("restore")
 
   script.ShowProgress(0.2, 10)
-  script.WriteRawImage("/boot", "boot.img")
-  script.WriteRawImage("/recovery", "recovery.img")
+  script.BMLWriteRawImage("boot", "boot.img")
   script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
 
