@@ -14,6 +14,16 @@ on early-init
     mkdir /storage/usbdisk4 0775 system system
     mkdir /storage/usbdisk5 0775 system system
 
+#    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    # for backwards compatibility
+
+    export SECOND_VOLUME_STORAGE /mnt/external_sd
+    mkdir /mnt/external_sd 0000 system system
+    export THIRD_VOLUME_STORAGE /mnt/usb_storage
+    mkdir /mnt/usb_storage 0000 system system
+
+
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
@@ -36,6 +46,9 @@ on post-fs-data
     chmod 777 /data/misc/ppp
     copy /etc/ppp/pap-secrets /data/misc/ppp/pap-secrets
     copy /etc/ppp/pppoe.conf /data/misc/ppp/pppoe.conf
+	    # we will remap this as /mnt/sdcard with the sdcard fuse tool
+    mkdir /data/media 0775 media_rw media_rw
+    chown media_rw media_rw /data/media
 
 on boot
     # adb mode
