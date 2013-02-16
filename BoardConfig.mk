@@ -18,18 +18,21 @@ LOCAL_PATH := device/rockchip/rk2918
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
+TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a8
-TARGET_ARCH := arm
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon
+# -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon
+# -mfloat-abi=softfp
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
-TARGET_BOARD_PLATFORM := rk2918
+TARGET_BOARD_PLATFORM := rk29sdk
 TARGET_CPU_ABI := armeabi
-TARGET_BOOTLOADER_BOARD_NAME := RK29board
+TARGET_BOOTLOADER_BOARD_NAME := rk29board
 TARGET_BOARD_INFO_FILE := $(LOCAL_PATH)/board-info.txt
 
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
@@ -56,6 +59,7 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 #HDMI
 TARGET_HAVE_HDMI_OUT := true
+BOARD_USES_HDMI := true
 
 #Audio
 BOARD_USES_GENERIC_AUDIO := false
@@ -79,31 +83,43 @@ USE_OPENGL_RENDERER := true
 USE_OPENGL_RENDERER := true
 TARGET_DISABLE_TRIPLE_BUFFERING := true
 ENABLE_WEBGL := true
-
 BOARD_NEEDS_MEMORYHEAPPMEM := true
+TARGET_USES_ION := true
+# For WebKit rendering issue
+TARGET_FORCE_CPU_UPLOAD := true
+
+
+BOARD_USES_PROPRIETARY_OMX := false
+COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE -DNO_RGBX_8888 -DMISSING_GRALLOC_BUFFERS
 
 # HWComposer
 BOARD_USES_HWCOMPOSER := true
 
-# Camera
-USE_CAMERA_STUB := true
+# Camera Setup
+USE_CAMERA_STUB := false
+BOARD_CAMERA_USE_MM_HEAP := true
+COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB
 
-#Wlan
-BOARD_WLAN_DEVICE := rtl8192cu
+# Wifi stuff
+BOARD_WIFI_VENDOR := realtek
+
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_rtl
-#BOARD_HOSTAPD_DRIVER        := WEXT
-#BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_rtl
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/wlan.ko"
-WIFI_DRIVER_FW_PATH_PARAM   := ""
-WIFI_DRIVER_FW_PATH_STA     := ""
-WIFI_DRIVER_FW_PATH_AP      := ""
-WIFI_DRIVER_FW_PATH_P2P     := ""
-WIFI_DRIVER_MODULE_NAME     := wlan
-WIFI_DRIVER_MODULE_ARG      := ""
 
-TARGET_CUSTOM_WIFI := device/rockchip/rk2918/wifi_realtek.c
+BOARD_WLAN_DEVICE := rtl8192cu
+WIFI_DRIVER_MODULE_NAME   := wlan
+WIFI_DRIVER_MODULE_PATH   := "/system/lib/modules/wlan.ko"
+
+WIFI_DRIVER_MODULE_ARG    := ""
+WIFI_FIRMWARE_LOADER      := ""
+WIFI_DRIVER_FW_PATH_STA   := ""
+WIFI_DRIVER_FW_PATH_AP    := ""
+WIFI_DRIVER_FW_PATH_P2P   := ""
+WIFI_DRIVER_FW_PATH_PARAM := ""
+
+TARGET_CUSTOM_WIFI := ../../hardware/realtek/wlan/libhardware_legacy/wifi/wifi_realtek.c
+
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/rockchip/rk2918/recovery/recovery_keys.c
 BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"

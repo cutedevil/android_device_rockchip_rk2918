@@ -1,0 +1,12 @@
+########################################################
+# AVerMedia Technologies, Inc. AverTV Volar Black HD (A850)
+
+DefaultVendor=  0x07ca
+DefaultProduct= 0x850a
+
+
+CheckSuccess=20
+
+
+
+
