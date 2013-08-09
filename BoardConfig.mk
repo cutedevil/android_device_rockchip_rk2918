@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/rockchip/rk2918
+LOCAL_PATH := device/tct/T10
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -51,7 +51,7 @@ BOARD_VOLD_MAX_PARTITIONS := 20
 #Bluethoot
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_CSR := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/rockchip/rk2918/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/tct/T10/bluetooth
 
 
 #Touch screen
@@ -121,11 +121,11 @@ WIFI_DRIVER_FW_PATH_PARAM := ""
 TARGET_CUSTOM_WIFI := ../../hardware/realtek/wlan/libhardware_legacy/wifi/wifi_realtek.c
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/rockchip/rk2918/recovery/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/tct/T10/recovery/recovery_keys.c
 BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # inherit from the proprietary version
--include vendor/rockchip/rk2918/BoardConfigVendor.mk
+-include vendor/tct/T10/BoardConfigVendor.mk

@@ -18,20 +18,20 @@
 $(call inherit-product, vendor/cm/config/gsm.mk)
 
 # Release name
-PRODUCT_RELEASE_NAME := rk2918
+PRODUCT_RELEASE_NAME := T10
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/rockchip/rk2918/full_rk2918.mk)
+$(call inherit-product, device/tct/T10/full_T10.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_NAME := cm_rk2918
-PRODUCT_BRAND := rockhip
+PRODUCT_NAME := cm_T10
+PRODUCT_BRAND := tct
 PRODUCT_DEVICE := rk2918
-PRODUCT_MODEL := PASCAL2
-PRODUCT_MANUFACTURER := rockchip
+PRODUCT_MODEL := T10
+PRODUCT_MANUFACTURER := tct
 
 
 

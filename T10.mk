@@ -19,7 +19,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
-LOCAL_PATH := device/rockchip/rk2918
+LOCAL_PATH := device/tct/T10
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -49,7 +49,7 @@ PRODUCT_COPY_FILES += \
 
 #Unifique prebuilt 
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/rockchip/rk2918/prebuilt,system)	
+	$(call find-copy-subdir-files,*,device/tct/T10/prebuilt,system)	
 	
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -58,7 +58,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # other kernel modules not in ramdisk
 PRODUCT_COPY_FILES += $(foreach module,\
-	$(filter-out $(RAMDISK_MODULES),$(wildcard device/rockchip/rk2918/modules/*.ko)),\
+	$(filter-out $(RAMDISK_MODULES),$(wildcard device/tct/T10/modules/*.ko)),\
 	$(module):system/lib/modules/$(notdir $(module)))
 
 PRODUCT_PACKAGES := \
@@ -144,4 +144,4 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mass_storage
 
 # Use the non-open-source parts, if they're present
-$(call inherit-product-if-exists, vendor/rockchip/rk2918/rk2918-vendor.mk)
+$(call inherit-product-if-exists, vendor/tct/T10/T10-vendor.mk)

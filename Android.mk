@@ -22,7 +22,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),rk2918)
+ifeq ($(TARGET_DEVICE),T10)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 

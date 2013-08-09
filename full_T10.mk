@@ -23,12 +23,12 @@
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-$(call inherit-product, device/rockchip/rk2918/rk2918.mk)
+$(call inherit-product, device/tct/T10/T10.mk)
 
 # Discard inherited values and use our own instead.
-PRODUCT_NAME := cm_rk2918
-PRODUCT_BRAND := rockhip
+PRODUCT_NAME := cm_T10
+PRODUCT_BRAND := tct
 PRODUCT_DEVICE := rk2918
-PRODUCT_MODEL := PASCAL2
-PRODUCT_MANUFACTURER := rockchip
+PRODUCT_MODEL := T10
+PRODUCT_MANUFACTURER := tct
 
