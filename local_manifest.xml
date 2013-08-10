@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <project path="device/tct/T10" name="cutedevil/android_device_rockchip_rk2918" remote="github" revision="cm10.1"/>
+</manifest>
