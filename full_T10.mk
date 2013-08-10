@@ -28,7 +28,7 @@ $(call inherit-product, device/tct/T10/T10.mk)
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := cm_T10
 PRODUCT_BRAND := tct
-PRODUCT_DEVICE := rk2918
+PRODUCT_DEVICE := T10
 PRODUCT_MODEL := T10
 PRODUCT_MANUFACTURER := tct
 

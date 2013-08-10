@@ -29,7 +29,7 @@ $(call inherit-product, device/tct/T10/full_T10.mk)
 # Device identifier. This must come after all inclusions
 PRODUCT_NAME := cm_T10
 PRODUCT_BRAND := tct
-PRODUCT_DEVICE := rk2918
+PRODUCT_DEVICE := T10
 PRODUCT_MODEL := T10
 PRODUCT_MANUFACTURER := tct
 
