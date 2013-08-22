@@ -43,21 +43,21 @@ exec >> /emmc/cyanogenmod.log 2>&1
 #
 
 # format system if not ext4
-if ! /tmp/busybox mount -t ext4 /dev/block/mtdblock9 /system ; then
+if ! /tmp/busybox mount -t ext4 /dev/block/mtdblock8 /system ; then
     /tmp/busybox umount /system
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mtdblock9
+    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mtdblock8
 fi
 
 # format cache if not ext4
-if ! /tmp/busybox mount -t ext4 /dev/block/mtdblock6 /cache ; then
+if ! /tmp/busybox mount -t ext4 /dev/block/mtdblock5 /cache ; then
     /tmp/busybox umount /cache
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mtdblock6
+    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mtdblock5
 fi
 
 # format data if not ext4
-if ! /tmp/busybox mount -t ext4 /dev/block/mtdblock7 /data ; then
+if ! /tmp/busybox mount -t ext4 /dev/block/mtdblock6 /data ; then
     /tmp/busybox umount /data
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mtdblock7
+    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mtdblock6
 fi
 
 # unmount everything

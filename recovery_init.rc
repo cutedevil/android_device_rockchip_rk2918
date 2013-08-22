@@ -11,26 +11,30 @@ on init
     symlink /system/etc /etc
 
     mkdir /boot
-    mkdir /sdcard
-    mkdir /sd-ext
     mkdir /datadata
     mkdir /emmc
+		mkdir /mnt
+			mkdir /mnt/sdcard
+			mkdir /mnt/sd-ext
+			mkdir /mnt/external_sd
     mkdir /system
     mkdir /data
     mkdir /cache
     mkdir /kernel
-    mount tmpfs tmpfs /tmp
+    mount /tmp /tmp tmpfs
     mount vfat /dev/block/mtdblock10 /emmc
-    mount ext3 /dev/block/mtdblock6 /cache
-    mount ext3 /dev/block/mtdblock7 /data
-    mount ext3 /dev/block/mtdblock9 /system
-	
+    mount ext3 /dev/block/mtdblock5 /cache
+    mount ext3 /dev/block/mtdblock6 /data
+    mount ext3 /dev/block/mtdblock8 /system
+  
     write /sys/devices/virtual/bdi/179:0/read_ahead_kb 2048
     write /sys/devices/virtual/bdi/7:0/read_ahead_kb 2048
     write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
 
 on boot
-
+	setprop UserVolumeLabel "T10"
+    setprop InternalSD_ROOT "/mnt/sdcard"
+    setprop ExternalSD_ROOT	"/mnt/external_sd"
     ifup lo
     hostname localhost
     domainname localdomain
@@ -40,7 +44,7 @@ on boot
 service ueventd /sbin/ueventd
     critical
 
-service erase_misc /sbin/sh -c "busybox dd if=/misc.img of=/dev/block/mtdblock1; sync"
+service erase_misc /sbin/sh -c "busybox dd if=/misc.img of=/dev/block/mtdblock0; sync"
     oneshot
 
 service recovery /sbin/recovery

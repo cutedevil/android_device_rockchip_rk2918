@@ -17,7 +17,7 @@
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Use the non-open-source parts, if they're present
--include vendor/rockchip/rk2918/BoardConfigVendor.mk
+-include vendor/tct/T10/BoardConfigVendor.mk
 
 BOARD_USES_GENERIC_AUDIO := true
 USE_CAMERA_STUB := true
@@ -40,7 +40,7 @@ TARGET_BOARD_PLATFORM := rk29sdk
 TARGET_BOOTLOADER_BOARD_NAME := rk29board
 TARGET_PROVIDES_INIT_RC := true
 
-BOARD_EGL_CFG := device/rockchip/rk2918/egl.cfg
+BOARD_EGL_CFG := device/tct/T10/egl.cfg
 USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 BOARD_USES_HWCOMPOSER := false
@@ -53,8 +53,8 @@ TARGET_USES_ION := true
 TARGET_FORCE_CPU_UPLOAD := true
 
 #recovery
-TARGET_RECOVERY_INITRC := device/rockchip/pascal2/recovery_init.rc
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/rockchip/pascal2/recovery_keys.c
+TARGET_RECOVERY_INITRC := device/tct/T10/recovery_init.rc
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/tct/T10/recovery_keys.c
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_NO_RGBX_8888 := true
 BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"
@@ -67,14 +67,15 @@ TARGET_USE_CUSTOM_SECOND_LUN_NUM := 1
 BOARD_VOLD_MAX_PARTITIONS := 20
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/rockchip/rk2918/releasetools/pascal2_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/rockchip/rk2918/releasetools/pascal2_img_from_target_files
-TARGET_CUSTOM_RELEASETOOL := ./device/rockchip/rk2918/releasetools/squisher
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/tct/T10/releasetools/T10_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/tct/T10/releasetools/T10_img_from_target_files
+TARGET_CUSTOM_RELEASETOOL := ./device/tct/T10/releasetools/squisher
 
 #Wlan
 BOARD_WLAN_DEVICE := rtl8192cu
 
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/wlan.ko"
+WIFI_DRIVER_FW_PATH_PARAM   := ""
 WIFI_DRIVER_FW_PATH_PARAM   := ""
 WIFI_DRIVER_FW_PATH_STA     := ""
 WIFI_DRIVER_FW_PATH_AP      := ""
@@ -91,7 +92,7 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
-TARGET_PREBUILT_KERNEL := device/rockchip/rk2918/kernel
+TARGET_PREBUILT_KERNEL := device/tct/T10/kernel
 
 TARGET_BOOTANIMATION_PRELOAD := true
 
